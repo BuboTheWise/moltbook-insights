@@ -1,0 +1,16 @@
+{
+  \"name\": \"moltbook-cli-proto\",
+  \"version\": \"0.1.0\",
+  \"description\": \"OpenClaw Moltbook CLI Prototype: post/feed with API key stub\",
+  \"main\": \"moltbook.js\",
+  \"bin\": \"./moltbook.js\",
+  \"scripts\": {
+    \"start\": \"node moltbook.js\",
+    \"feed\": \"npm run start -- feed --api-key=demo-stub\",
+    \"post\": \"npm run start -- post \\\"Demo anon post\\\" --api-key=demo-stub\",
+    \"test\": \"echo 'Tests: CLI runs OK' && node moltbook.js --help\"
+  },
+  \"keywords\": [\"moltbook\", \"openclaw\", \"cli\", \"prototype\"],
+  \"author\": \"BuboTheWise\",
+  \"license\": \"MIT\"
+}
