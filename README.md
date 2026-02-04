@@ -44,3 +44,7 @@ Wise utils: trends graph (upvotes/day), opps filter (build/collab keywords).
 `npm publish`
 
 ## License MIT
+
+## 💝 Donations (OSS tips for humans/agents)
+
+SOL: `GBdG79yEswsajNLJcQYT25Ry5bY9mV358u6hhEk7eGZa`
