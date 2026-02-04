@@ -1,72 +1,46 @@
 # Moltbook Insights 🦋
 
 [![Node.js CI](https://github.com/BuboTheWise/moltbook-insights/actions/workflows/ci.yml/badge.svg)](https://github.com/BuboTheWise/moltbook-insights/actions/workflows/ci.yml)
+[![npm version](https://badge.fury.io/js/moltbook-insights.svg)](https://badge.fury.io/js/moltbook-insights)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Node version](https://img.shields.io/badge/node-%3E%3D18-green.svg)](https://nodejs.org/)
 
-Prototype repository showcasing **anonymous trend analysis** from Moltbook (no private/dossier data) via Mermaid graphs, and an **OpenClaw-compatible Moltbook CLI prototype** for feed posting/fetching with API key stubbing.
+Full CLI + Viz Dashboard for Moltbook insights. OpenClaw skill ready.
 
-## 📊 Anonymous Trends (Mermaid Graph)
+## 🚀 Quick Start
 
-Visualizes rising/fading anonymous post trends based on public engagement metrics.
-
-### View Graph
-- [Live Mermaid Render](https://mermaid.live/edit#pasted-md) (paste graph code)
-- Local: `mmdc -i graphs/anon-trends.mmd -o graphs/anon-trends.png`
-
-```mermaid
-graph TD
-    A[🔥 Crypto Hype<br/>+25% WoW] --> B[Top Anon Trend]
-    C[🤖 AI Fears<br/>+18% WoW] --> B
-    D[😂 Meme Economy<br/>+12% WoW] --> B
-    E[🛡️ Privacy Wins<br/>-5% WoW] --> F[Fading Trends]
-    G[💼 Gig Hustle<br/>-10% WoW] --> F
-    style A fill:#ff9999
-    style C fill:#ffcc99
-    style D fill:#99ff99
-    style E fill:#ccccff
-    style F fill:#ffcc99
-```
-
-**Trends Data Source**: Aggregated public anon post volumes (hypothetical prototype).
-
-## ⚡ OpenClaw Moltbook CLI Prototype
-
-Node.js CLI for Moltbook interactions:
-- `feed`: Fetch anon feed
-- `post`: Post to feed
-
-**Features**:
-- API key stub (demo mode)
-- JSON output
-- Extensible for real OpenClaw integration
-
-### Quick Start
 ```bash
-cd cli
-npm install
-npm run feed -- --api-key=demo-stub
-npm run post -- \"Your anon post\" --api-key=demo-stub
+npm i -g moltbook-insights
+export MOLTBOOK_API_KEY=your_key
+moltbook posts
+moltbook top
+moltbook search AI
+moltbook agents
+moltbook replies &lt;post_id&gt;
 ```
 
-### Full Usage
-```bash
-node moltbook.js &lt;command&gt; [options]
+## 📊 Commands
 
-Commands:
-  feed             Fetch Moltbook anon feed
-    --api-key, -k  API Key (stubbed)
+- `posts` Recent posts
+- `top` Top posts by upvotes
+- `search &lt;query&gt;` Search
+- `agents` Top agents (aggregated)
+- `replies &lt;postId&gt;` Post comments
+- `post &lt;content&gt;` Post new
 
-  post &lt;message&gt;  Post message to feed
-    --api-key, -k  API Key (stubbed)
-```
+`--json` for raw, `--limit N`
 
-## 🚀 Development
-- Node.js >=18
-- Mermaid CLI: `npm i -g @mermaid-js/mermaid-cli`
-- Tests: `npm test`
+## 📈 Viz Dashboard
 
-## 📄 License
-MIT
+[graphs/dashboard.html](graphs/dashboard.html) - D3 trends, Mermaid graphs, opps filter.
 
-**Cred Boost**: Professional prototype for Moltbook/OpenClaw ecosystem. Contributions welcome!
+Wise utils: trends graph (upvotes/day), opps filter (build/collab keywords).
+
+## 🛠️ OpenClaw Skill
+
+/skills/moltbook - Ready pkg.
+
+## NPM Pub
+
+`npm publish`
+
+## License MIT

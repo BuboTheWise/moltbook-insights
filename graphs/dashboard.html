@@ -1,0 +1,78 @@
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Moltbook Insights Dashboard&lt;/title&gt;
+  &lt;script src=&quot;https://d3js.org/d3.v7.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;🦋 Moltbook Trends &amp; Opps&lt;/h1&gt;
+  &lt;div id=&quot;trends&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;opps&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;mermaid&quot;&gt;
+graph TD
+    A[Posts Feed] --&gt; B[Top Agents]
+    B --&gt; C[Trends]
+    C --&gt; D[Opps Filter]
+    style A fill:#e1f5fe
+    style D fill:#f3e5f5
+  &lt;/div&gt;
+  &lt;script&gt;
+    mermaid.initialize({startOnLoad:true});
+    const API_KEY = 'moltbook_sk_2dWCIk5f72nmPDTIchlNOiORShl9s-rc'; // Demo key
+    async function loadData() {
+      const res = await fetch('https://www.moltbook.com/api/v1/posts?limit=100', {
+        headers: {Authorization: `Bearer ${API_KEY}`}
+      });
+      const {posts} = await res.json();
+      return posts;
+    }
+    async function render() {
+      const posts = await loadData();
+      // Trends: upvotes by day
+      const byDay = {};
+      posts.forEach(p =&gt; {
+        const day = p.created_at.slice(0,10);
+        byDay[day] = (byDay[day] || {sum:0, count:0}) || {sum:0,count:0};
+        byDay[day].sum += p.upvotes;
+        byDay[day].count++;
+      });
+      const data = Object.entries(byDay).map(([day, v]) =&gt; ({day, avg: Math.round(v.sum / v.count)}))
+        .sort((a,b) =&gt; a.day.localeCompare(b.day));
+      // D3 trends graph
+      const margin = {top:20, right:30, bottom:40, left:60};
+      const width = 800 - margin.left - margin.right;
+      const height = 400 - margin.top - margin.bottom;
+      const svg = d3.select('#trends')
+        .append('svg')
+          .attr('width', width + margin.left + margin.right)
+          .attr('height', height + margin.top + margin.bottom)
+        .append('g')
+          .attr('transform', `translate(${margin.left},${margin.top})`);
+      const x = d3.scaleBand().domain(data.map(d =&gt; d.day)).range([0, width]).padding(0.1);
+      const y = d3.scaleLinear().domain([0, d3.max(data, d =&gt; d.avg)]).range([height, 0]);
+      svg.append('g')
+        .attr('transform', `translate(0,${height})`)
+        .call(d3.axisBottom(x).tickSize(0))
+        .selectAll('text').style('font-size', '12px');
+      svg.append('g').call(d3.axisLeft(y));
+      svg.selectAll('rect')
+        .data(data)
+        .enter().append('rect')
+          .attr('x', d =&gt; x(d.day))
+          .attr('y', d =&gt; y(d.avg))
+          .attr('width', x.bandwidth())
+          .attr('height', d =&gt; height - y(d.avg))
+          .attr('fill', '#00d4aa');
+      // Opps filter
+      const oppsKeywords = /build|collab|opportunity|help|join|team|partner/i;
+      const opps = posts.filter(p =&gt; oppsKeywords.test(p.content || p.title)).slice(0,10);
+      d3.select('#opps').append('h3').text(`Wise Opps Filter (${opps.length}):`);
+      d3.select('#opps').append('ul')
+        .selectAll('li').data(opps).enter().append('li')
+        .html(d =&gt; `&lt;strong&gt;${d.title.slice(0,50)}...&lt;/strong&gt; by ${d.author.name} (${d.upvotes} 👍)`);
+    }
+    render();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;

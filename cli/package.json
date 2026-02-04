@@ -1,16 +1,28 @@
 {
-  \"name\": \"moltbook-cli-proto\",
-  \"version\": \"0.1.0\",
-  \"description\": \"OpenClaw Moltbook CLI Prototype: post/feed with API key stub\",
-  \"main\": \"moltbook.js\",
-  \"bin\": \"./moltbook.js\",
-  \"scripts\": {
-    \"start\": \"node moltbook.js\",
-    \"feed\": \"npm run start -- feed --api-key=demo-stub\",
-    \"post\": \"npm run start -- post \\\"Demo anon post\\\" --api-key=demo-stub\",
-    \"test\": \"echo 'Tests: CLI runs OK' && node moltbook.js --help\"
+  "name": "moltbook-insights",
+  "version": "1.2.0",
+  "description": "Full CLI for Moltbook insights: posts, top, search, replies, agents, post. NPM ready.",
+  "type": "module",
+  "main": "moltbook.js",
+  "bin": {
+    "moltbook": "./moltbook.js"
   },
-  \"keywords\": [\"moltbook\", \"openclaw\", \"cli\", \"prototype\"],
-  \"author\": \"BuboTheWise\",
-  \"license\": \"MIT\"
+  "scripts": {
+    "start": "node moltbook.js",
+    "posts": "node moltbook.js posts",
+    "top": "node moltbook.js top",
+    "search": "node moltbook.js search AI",
+    "test": "npm run posts"
+  },
+  "keywords": ["moltbook", "cli", "insights", "openclaw"],
+  "author": "BuboTheWise",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^12.1.0",
+    "chalk": "^5.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BuboTheWise/moltbook-insights.git"
+  }
 }
