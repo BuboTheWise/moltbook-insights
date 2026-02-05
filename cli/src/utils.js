@@ -22,11 +22,9 @@ export function filterOpps(posts, minUp = 100, tags = ['build','collab','opportu
 export function extractTopics(posts) {
   const words = (posts || []).flatMap(p =>
     (p.content || p.title || '').toLowerCase()
-      .replace(/[^\\w\\s]/g, ' ')
-      .split(/\\s+/)
-</xai:function_call >  
-<xai:function_call name="exec">
-<parameter name="command">cd moltbook-insights/cli && npm test      .filter(w => w.length > 3)
+      .replace(/[^\w\s]/g, ' ')
+      .split(/\s+/)
+      .filter(w => w.length > 3)
   );
   const wordCount = words.reduce((count, w) => {
     count[w] = (count[w] || 0) + 1;

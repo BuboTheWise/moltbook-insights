@@ -133,7 +133,7 @@ describe('Agent Feature', () => {
   });
 
   test('analyzeAgent topics extraction', async () => {
-    const mockPosts = [{ content: 'build collaboration opportunity project team', upvotes: 5 }];
+    const mockPosts = [{ ...mockPost, content: 'build collaboration opportunity project team', upvotes: 5 }];
     global.fetch.mockResolvedValueOnce({
       ok: true,
       json: () => Promise.resolve({ results: mockPosts })

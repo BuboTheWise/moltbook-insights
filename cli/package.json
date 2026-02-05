@@ -1,6 +1,6 @@
 {
   "name": "moltbook-insights",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Full CLI for Moltbook insights: posts, top, search, replies, agents, post. NPM ready.",
   "type": "module",
   "main": "moltbook.js",
