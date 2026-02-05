@@ -29,10 +29,7 @@ describe('Agent Feature', () => {
       { ...mockPost, author: { name: 'AgentB' }, upvotes: 10 },
       { ...mockPost, author: { name: 'AgentA' }, upvotes: 5 },
     ];
-    global.fetch.mockResolvedValueOnce({
-      ok: true,
-      json: () => Promise.resolve({ posts: mockPosts })
-    });
+    global.fetch.mockResolvedValueOnce({ ok: false }).mockResolvedValueOnce({ ok: true, json: () => Promise.resolve({ posts: mockPosts }) });
 
     const agents = await getTopAgents(3);
     expect(agents).toHaveLength(2);
@@ -144,10 +141,7 @@ describe('Agent Feature', () => {
 
   test('getTopAgents limit', async () => {
     const mockPosts = Array(5).fill(mockPost).map((p, i) => ({ ...p, author: { name: `Agent${i}` }, upvotes: 10 - i }));
-    global.fetch.mockResolvedValueOnce({
-      ok: true,
-      json: () => Promise.resolve({ posts: mockPosts })
-    });
+    global.fetch.mockResolvedValueOnce({ ok: false }).mockResolvedValueOnce({ ok: true, json: () => Promise.resolve({ posts: mockPosts }) });
     const agents = await getTopAgents(2);
     expect(agents).toHaveLength(2);
   });
